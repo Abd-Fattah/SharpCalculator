@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="400" Height="500"
+        x:Class="SharpCalculator.Avalonia.MainWindow"
+        Title="SharpCalculator"
+        FontFamily="Consolas"
+        FontSize="24">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>4* 1* 4*</Grid.RowDefinitions>
+        <TextBox Name="Input" IsReadOnly="True"></TextBox>
+            <TextBlock Name="Output" Grid.Row="1" VerticalAlignment="Center">= 0</TextBlock>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions> * * * * </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions> * * * * * </Grid.RowDefinitions>
+            <Button Grid.Row="1" Grid.Column="0" Name="SevenButton" Click="NumberButton_OnClick">7</Button>
+            <Button Grid.Row="1" Grid.Column="1" Name="EightButton" Click="NumberButton_OnClick">8</Button>
+            <Button Grid.Row="1" Grid.Column="2" Name="NineButton" Click="NumberButton_OnClick">9</Button>
+            
+            <Button Grid.Row="2" Grid.Column="0" Name="FourButton" Click="NumberButton_OnClick">4</Button>
+            <Button Grid.Row="2" Grid.Column="1" Name="FiveButton" Click="NumberButton_OnClick">5</Button>
+            <Button Grid.Row="2" Grid.Column="2" Name="SixButton" Click="NumberButton_OnClick">6</Button>
+            
+            <Button Grid.Row="3" Grid.Column="0" Name="OneButton" Click="NumberButton_OnClick">1</Button>
+            <Button Grid.Row="3" Grid.Column="1" Name="TwoButton" Click="NumberButton_OnClick">2</Button>
+            <Button Grid.Row="3" Grid.Column="2" Name="ThreeButton" Click="NumberButton_OnClick">3</Button>
+            
+            <Button Grid.Row="4" Grid.Column="0" Name="ZeroButton" Click="NumberButton_OnClick">0</Button>
+            <Button Grid.Row="4" Grid.Column="1" Name="PointButton" Click="NumberButton_OnClick">.</Button>
+            <Button Grid.Row="4" Grid.Column="2" Name="PowerButton" Click="OperationButton_OnClick">^</Button>
+            
+            <Button Grid.Row="1" Grid.Column="3" Name="DivideButton" Click="OperationButton_OnClick">/</Button>
+            <Button Grid.Row="2" Grid.Column="3" Name="MultiplyButton" Click="OperationButton_OnClick">*</Button>
+            <Button Grid.Row="3" Grid.Column="3" Name="SubstractButton" Click="OperationButton_OnClick">-</Button>
+            <Button Grid.Row="4" Grid.Column="3" Name="AddButton" Click="OperationButton_OnClick">+</Button>
+            
+            <Button Grid.Row="0" Grid.Column="3" Name="EqualButton"  Click="OperationButton_OnClick">=</Button>
+            <Button Grid.Row="0" Grid.Column="2" Name="ClearButton"  Click="ClearButton_OnClick">CLR</Button>
+        </Grid>
+    </Grid>
+</Window>
