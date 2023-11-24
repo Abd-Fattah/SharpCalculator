@@ -22,7 +22,7 @@ public partial class MainWindow : Window
     readonly Func<double, double, double> _initialOperation = (_, firstN) => firstN;
     private Func<double, double, double> _currentOperation;
     
-    private void NewOperation(Func<double, double, double> operation, string operationText)
+    private void NewOperation(Func<double, double, double> operation, Func<string> operationText)
     {
         // operation replacement
         if (_currentNumberB.Length == 0) 
@@ -33,7 +33,7 @@ public partial class MainWindow : Window
             Output.Text = _prevNumber.ToString(CultureInfo.InvariantCulture);
             _currentNumberB.Clear();
         }
-        Input.Text = _prevNumber.ToString(CultureInfo.InvariantCulture) + " " + operationText + " ";
+        Input.Text += operationText();
         _currentOperation = operation;
     }
 
@@ -56,25 +56,25 @@ public partial class MainWindow : Window
         switch (text)
         {
             case "+":
-                NewOperation((a, b) => a + b, text);
+                NewOperation((a, b) => a + b, () => text);
                 break;
             case "-":
-                NewOperation((a, b) => a - b, text);
+                NewOperation((a, b) => a - b, () => text);
                 break;
             case "*":
-                NewOperation((a, b) => a * b, text);
+                NewOperation((a, b) => a * b, () => text);
                 break;
             case "/":
-                NewOperation((a, b) => a / b, text);
+                NewOperation((a, b) => a / b, () => text);
                 break;
             case "^":
-                NewOperation(Math.Pow, text);
+                NewOperation(Math.Pow, () => text);
                 break;
             case "=":
-                NewOperation((_, newNumber) => newNumber, "");
+                NewOperation((_, newNumber) => newNumber, () => $"={_prevNumber}\n");
                 break;
             default:
-                throw new Exception("incorrect button text: " + text);
+                throw new Exception("incorrect button text: ");
         }
     }
 
