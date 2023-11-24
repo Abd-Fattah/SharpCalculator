@@ -10,45 +10,42 @@ public partial class MainWindow : Window
 {
     public MainWindow()
     {
+        _currentOperation = _initialOperation;
         InitializeComponent();
     }
 
-    private double _rezult;
-    private StringBuilder currentNumberB = new();
+    private double _prevNumber;
+    private StringBuilder _currentNumberB = new();
 
-    private double CompleteCurrentNumber()
-    {
-        var n = double.Parse(currentNumberB.ToString(), CultureInfo.InvariantCulture);
-        currentNumberB.Clear();
-        return n;
-    }
+    private double ParseCurrentNumber() => double.Parse(_currentNumberB.ToString(), CultureInfo.InvariantCulture);
 
-    private void UpdateOutput()
-    {
-        Output.Text = "= " + _rezult;
-    }
-
-    private Func<double, double, double> prevOperation = (_, firstN) => firstN;
+    readonly Func<double, double, double> _initialOperation = (_, firstN) => firstN;
+    private Func<double, double, double> _currentOperation;
     
-    private void TryUpdateRezult(Func<double, double, double> operation, string text)
+    private void NewOperation(Func<double, double, double> operation, string operationText)
     {
-        if (currentNumberB.Length > 0)
+        // operation replacement
+        if (_currentNumberB.Length == 0) 
+            Input.Redo();
+        else
         {
-            _rezult = prevOperation(_rezult, CompleteCurrentNumber());
-            prevOperation = operation;
-            Input.Text += " " + text + " ";
+            _prevNumber = _currentOperation( _prevNumber, ParseCurrentNumber());
+            Output.Text = _prevNumber.ToString(CultureInfo.InvariantCulture);
+            _currentNumberB.Clear();
         }
-
-        UpdateOutput();
+        Input.Text = _prevNumber.ToString(CultureInfo.InvariantCulture) + " " + operationText + " ";
+        _currentOperation = operation;
     }
 
     private void NumberButton_OnClick(object? sender, RoutedEventArgs e)
     {
         if (sender is not Button button)
             throw new Exception();
-        string text = button.Content?.ToString()!;
+        
+        string text = button.Content!.ToString()!;
         Input.Text += text;
-        currentNumberB.Append(text);
+        _currentNumberB.Append(text);
+        Output.Text = "= " + _currentOperation(_prevNumber, ParseCurrentNumber()).ToString(CultureInfo.InvariantCulture);
     }
 
     private void OperationButton_OnClick(object? sender, RoutedEventArgs e)
@@ -59,22 +56,22 @@ public partial class MainWindow : Window
         switch (text)
         {
             case "+":
-                TryUpdateRezult((a, b) => a + b, text);
+                NewOperation((a, b) => a + b, text);
                 break;
             case "-":
-                TryUpdateRezult((a, b) => a - b, text);
+                NewOperation((a, b) => a - b, text);
                 break;
             case "*":
-                TryUpdateRezult((a, b) => a * b, text);
+                NewOperation((a, b) => a * b, text);
                 break;
             case "/":
-                TryUpdateRezult((a, b) => a / b, text);
+                NewOperation((a, b) => a / b, text);
                 break;
             case "^":
-                TryUpdateRezult(Math.Pow, text);
+                NewOperation(Math.Pow, text);
                 break;
             case "=":
-                TryUpdateRezult((a, _) => a, "");
+                NewOperation((_, newNumber) => newNumber, "");
                 break;
             default:
                 throw new Exception("incorrect button text: " + text);
@@ -83,8 +80,10 @@ public partial class MainWindow : Window
 
     private void ClearButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        _rezult = 0;
-        UpdateOutput();
+        _prevNumber = 0;
+        _currentOperation = _initialOperation;
+        _currentNumberB.Clear();
         Input.Text = "";
+        Output.Text = "= 0";
     }
 }
