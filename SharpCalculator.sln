@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpCalculator.Avalonia", "SharpCalculator.Avalonia\SharpCalculator.Avalonia.csproj", "{93E7D002-22D7-4C4F-AE6B-F1E0D938BCBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpCalculator", "SharpCalculator\SharpCalculator.csproj", "{F41EEE99-5319-4AAF-BB10-C82FE4E0557B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{93E7D002-22D7-4C4F-AE6B-F1E0D938BCBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93E7D002-22D7-4C4F-AE6B-F1E0D938BCBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93E7D002-22D7-4C4F-AE6B-F1E0D938BCBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F41EEE99-5319-4AAF-BB10-C82FE4E0557B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F41EEE99-5319-4AAF-BB10-C82FE4E0557B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F41EEE99-5319-4AAF-BB10-C82FE4E0557B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F41EEE99-5319-4AAF-BB10-C82FE4E0557B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
