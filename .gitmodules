@@ -1,0 +1,3 @@
+[submodule "FusionCalculator"]
+	path = FusionCalculator
+	url = https://github.com/Timerix22/FusionCalculator.git

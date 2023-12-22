@@ -10,9 +10,13 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.0.5"/>
-        <PackageReference Include="Avalonia.Desktop" Version="11.0.5"/>
-        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.5" />
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.5"/>
+        <PackageReference Include="Avalonia" Version="11.0.6" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.0.6" />
+        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.6" />
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.6" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\FusionCalculator\FusionCalculator.csproj" />
     </ItemGroup>
 </Project>
