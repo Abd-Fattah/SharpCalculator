@@ -27,7 +27,7 @@
         </Style>
         
         <Style Selector="Button.orange">
-            <Setter Property="Background" Value="DarkOrange"/>
+            <Setter Property="Background" Value="#C07500"/>
         </Style>
         
     </Application.Styles>

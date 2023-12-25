@@ -14,13 +14,13 @@
 
         <!--  1st row  -->
 
-        <TextBlock Name="Input" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="7"
+        <TextBox Name="Input" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="7"
             HorizontalAlignment="Right"
             Text=""/>
 
         <!--  2nd row  -->
 
-        <Button Name="ClearButton" Classes="cirlce gray" Grid.Column="0" Grid.Row="2"
+        <Button Classes="cirlce gray" Grid.Column="0" Grid.Row="2"
             Click="ClearButton_OnClick" Content="AC"/>
 
         <Button Classes="cirlce gray" Grid.Column="1" Grid.Row="2"

@@ -1,26 +1,11 @@
-// This implementation of the calculator using
-// multi-translating programming language Fusion.
-// The main logic was written on the Fusion, 
-// then translated into c#, 'out' module in FusionCalculator
-// is a translated c# code, that used by SharpCalculator module.
-// If you want to dive into the logic of the calculator,
-// you need to check 'out' folder in FusionCalculator module.
-
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using Avalonia.Controls;
-using Avalonia.Interactivity;
-using Avalonia.Media;
 using FusionCalculator;
-
 
 namespace SharpCalculator.Avalonia;
 
 public partial class MainWindow : Window
 {
-    private static readonly Random Random = new Random(); // Random object for rand() function in calculator
-    private readonly List<string> _history = new List<string>(); // History list to append expressions
+    private static readonly Random Random = new();
+    private readonly List<string> _history = new(); // History list to append expressions
     
     public MainWindow()
     {
@@ -36,37 +21,24 @@ public partial class MainWindow : Window
     private void UpdateHistoryText() //function to update history list 
     {
         int lastIndex = _history.Count - 1;
-
-        if (lastIndex >= 0)
-        {
+        if (lastIndex >= 0) 
             History1.Text = _history[lastIndex];
-        }
-
-        if (lastIndex - 1 >= 0)
-        {
+        if (lastIndex - 1 >= 0) 
             History2.Text = _history[lastIndex - 1];
-        }
-
-        if (lastIndex - 2 >= 0)
-        {
+        if (lastIndex - 2 >= 0) 
             History3.Text = _history[lastIndex - 2];
-        }
     }
 
     private void MathButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        if (sender is not Button button) // Checking if button exist, if not throw Exception
+        if (sender is not Button button)
             throw new Exception();
-
-        
-        
-        ClearButton.Content = "AC"; // clear button content changing to Accurate Clear mode
         
         switch (Input.Text) // Switch case for checking the inputting functions
         {
             case "rand": // rand function add random variable from 0 to 1 into Input 
                 Input.Text = "";
-                Input.Text += _random.NextDouble().ToString(CultureInfo.InvariantCulture);
+                Input.Text += Random.NextDouble().ToString(CultureInfo.InvariantCulture);
                 break;
             case "π": // Pi function add pi value into Input
                 Input.Text = "";
@@ -91,52 +63,38 @@ public partial class MainWindow : Window
         }
     }
     
-    private void DeleteLastDigit() // function of deleting the digits and math operators one by one from right, like in real calculators
-    {
-        if (!string.IsNullOrEmpty(Input.Text))
-        {
-            Input.Text = Input.Text.Substring(0, Input.Text.Length - 1);
-        }
-    }
 
     private void ClearButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        if ((string)ClearButton.Content! == "AC") // if clear button content equal to AC, clear one by one
-        { 
-            DeleteLastDigit();
-        }
-        else if ((string)ClearButton.Content! == "C") // if clear button content equal to C, clear all
-        {
-                Input.Text = "";
-        }
+        Input.Text = "";
+    }
+
+    private void UndoButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        // delete last digit
+        // if (!string.IsNullOrEmpty(Input.Text)) 
+        //     Input.Text = Input.Text.Remove(Input.Text.Length - 1);
+        Input.Undo();
     }
     
     private void ResultButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        History1.Foreground = new SolidColorBrush(Colors.Gray);
-        History2.Foreground = new SolidColorBrush(Colors.Gray);
-        History3.Foreground = new SolidColorBrush(Colors.Gray);
-
-        string inputHistory = Input.Text!;
-        
-        if(Input.Text == null) // checking Input for nullability 
+        if(Input.Text == null)
             return;
-        string exprStr = Input.Text; // expression variable, for print result
+        
+        string exprStr = Input.Text; // mathematical expression
         try
         {
             double result = Calculator.Calculate(exprStr); // result being processed by calculator object that implemented in FusionCalculator Module
             if (!double.IsNaN(result))
             {
+                AppendToHistory($"{exprStr} = {result}");
                 Input.Text = result.ToString(CultureInfo.InvariantCulture);
-                AppendToHistory($"{inputHistory} = {result}");
             }
         }
         catch (Exception exception)
         {
-            Input.Text = "Error";
             AppendToHistory($"Error: {exception.Message}");
         }
-
-        ClearButton.Content = "C"; // if the expression is printed, then change clear button content ot C, for clearing expression totally
     }
 }
