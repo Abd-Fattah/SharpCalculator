@@ -83,13 +83,20 @@ public partial class MainWindow : Window
         {
             // expression is being processed by Calculator class that implemented in FusionCalculator Module
             double result = Calculator.Calculate(exprStr);
+            
+            // incomplete expression with no rezult
             if (double.IsNaN(result))
                 Output.Text = "";
-            // scientific notation with 5-digit precision for big and small numbers
-            else if (result > 10e+15 || result < 10e-5)
+            else if (Math.Abs(result) is >= 10e-5 and <= 10e15)
+            {
+                // decimal number with 5-digit precision for regular numbers
+                Output.Text = result.ToString("0.#####", CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                // scientific notation with 5-digit precision for big and small numbers
                 Output.Text = result.ToString("0.#####E0", CultureInfo.InvariantCulture);
-            // decimal number with 5-digit precision for regular numbers
-            else Output.Text = result.ToString("0.#####", CultureInfo.InvariantCulture);
+            }
         }
         catch (Exception exception)
         {
