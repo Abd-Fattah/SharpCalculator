@@ -8,25 +8,20 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using FusionCalculator;
 using Avalonia.Media;
-
+using FusionCalculator;
 
 namespace SharpCalculator.Avalonia;
 
 public partial class MainWindow : Window
 {
-    static Random _random = new Random(); // Random object for rand() function in calculator
-    double _randomNumber = _random.NextDouble(); // Random variable is between 0 to 1
-    private int _currentIndex = 0; // Current index for checking the length of input text, accordingly for clear button
+    static Random _random = new(); // Random object for rand() function in calculator
+    private int _currentIndex; // Current index for checking the length of input text, accordingly for clear Button Classes="cirlce"
     
-    private List<string> _history = new List<string>();
+    private List<string> _history = new();
     
     public MainWindow()
     {
@@ -46,7 +41,7 @@ public partial class MainWindow : Window
         {
             case "rand": // rand function add random variable from 0 to 1 into Input 
                 Input.Text = "";
-                Input.Text += _randomNumber.ToString(CultureInfo.InvariantCulture);
+                Input.Text += _random.NextDouble().ToString(CultureInfo.InvariantCulture);
                 break;
             case "π": // Pi function add pi value into Input
                 Input.Text = "";
