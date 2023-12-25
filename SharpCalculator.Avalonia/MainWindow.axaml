@@ -36,9 +36,17 @@
             Background="Gray"
             Click="ClearButton_OnClick"
             Content="AC"
+            CornerRadius="30"
             Grid.Column="0"
             Grid.Row="2"
-            Name="ClearButton"/>
+            Height="60"
+            HorizontalAlignment="Center"
+            HorizontalContentAlignment="Center"
+            Margin="5"
+            Name="ClearButton"
+            VerticalAlignment="Center"
+            VerticalContentAlignment="Center"
+            Width="60" />
 
         <Button
             Background="Gray"
