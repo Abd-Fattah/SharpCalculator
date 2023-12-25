@@ -4,148 +4,158 @@
     x:Class="SharpCalculator.Avalonia.MainWindow"
     Title="SharpCalculator"
     FontFamily="Consolas" FontSize="24"
-    Width="600" Height="750"
-    MinWidth="600" MinHeight="750">
+    Width="460" Height="570">
 
-    <Grid Classes="center" Margin="20">
-        <Grid.ColumnDefinitions>* * * * * * *</Grid.ColumnDefinitions>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>1* 40 1* 330</Grid.RowDefinitions>
 
-        <Grid.RowDefinitions>* * * * * * * * * *</Grid.RowDefinitions>
-
-        <!--  1st row  -->
-
-        <TextBox Name="Input" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="7"
-            HorizontalAlignment="Right"
-            Text=""/>
-
-        <!--  2nd row  -->
-
-        <Button Classes="cirlce gray" Grid.Column="0" Grid.Row="2"
-            Click="ClearButton_OnClick" Content="AC"/>
-
-        <Button Classes="cirlce gray" Grid.Column="1" Grid.Row="2"
-            Click="MathButton_OnClick" Content="("/>
+        <TextBox Name="Input" Grid.Row="0"
+                 TextChanged="Input_OnTextChanged"
+                 BorderThickness="2"
+                 BorderBrush="#AAAAAA"
+                 TextWrapping="Wrap"/>
         
-        <Button Classes="cirlce gray" Grid.Column="2" Grid.Row="2"
-            Click="MathButton_OnClick" Content=")" />
+        <TextBlock Grid.Row="1" 
+                   VerticalAlignment="Center" 
+                   Foreground="#AAAAAA"
+                   Text="="/>
+        <TextBox Name="Output" Grid.Row="1" 
+                 Margin="16 0 0 0" 
+                 VerticalAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 IsReadOnly="True"
+                 BorderThickness="0"
+                 TextWrapping="NoWrap"/>
         
-        <Button Classes="cirlce orange" Grid.Column="3" Grid.Row="2"
-            Click="MathButton_OnClick" Content="/"/>
-
-        <Button Classes="cirlce gray" Grid.Column="4" Grid.Row="2"
-            Click="MathButton_OnClick" Content="^"/>
-
-        <Button Classes="cirlce gray" Grid.Column="5" Grid.Row="2"
-            Click="MathButton_OnClick" Content="sin"/>
-
-        <Button Classes="cirlce gray" Grid.Column="6" Grid.Row="2"
-            Click="MathButton_OnClick" Content="asin"/>
-
-        <!--  3rd row  -->
-
-        <Button Classes="cirlce" Grid.Column="0" Grid.Row="3"
-            Click="MathButton_OnClick" Content="7"/>
-
-        <Button Classes="cirlce" Grid.Column="1" Grid.Row="3"
-            Click="MathButton_OnClick" Content="8"/>
+        <TextBox Name="History" Grid.Row="2"
+                 Foreground="Gray"
+                 BorderThickness="1"
+                 BorderBrush="Gray"
+                 IsReadOnly="True"
+                 TextWrapping="NoWrap"
+                 FontSize="18"/>
         
-        <Button Classes="cirlce" Grid.Column="2" Grid.Row="3"
-            Click="MathButton_OnClick" Content="9"/>
-        
-        <Button Classes="cirlce orange" Grid.Column="3" Grid.Row="3"
-            Click="MathButton_OnClick" Content="*"/>
+        <Grid Grid.Row="3" VerticalAlignment="Bottom"
+              MinWidth="440" MaxWidth="440" MinHeight="320" MaxHeight="320">
+            <Grid.ColumnDefinitions>* * * * * * *</Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>* * * * *</Grid.RowDefinitions>
+            
+            <!--  1st row  -->
+            
+            <Button Classes="cirlce gray" Grid.Column="0" Grid.Row="0"
+                Click="ClearButton_OnClick" Content="AC"/>
 
-        <Button Classes="cirlce gray" Grid.Column="4" Grid.Row="3"
-            Click="MathButton_OnClick" Content="e"/>
+            <Button Classes="cirlce gray" Grid.Column="1" Grid.Row="0"
+                Click="MathButton_OnClick" Content="("/>
+            
+            <Button Classes="cirlce gray" Grid.Column="2" Grid.Row="0"
+                Click="MathButton_OnClick" Content=")" />
+            
+            <Button Classes="cirlce orange" Grid.Column="3" Grid.Row="0"
+                Click="MathButton_OnClick" Content="/"/>
 
-        <Button Classes="cirlce gray" Grid.Column="5" Grid.Row="3"
-            Click="MathButton_OnClick" Content="cos"/>
+            <Button Classes="cirlce gray" Grid.Column="4" Grid.Row="0"
+                Click="MathButton_OnClick" Content="1/x"/>
 
-        <Button Classes="cirlce gray" Grid.Column="6" Grid.Row="3"
-            Click="MathButton_OnClick" Content="acos"/>
+            <Button Classes="cirlce gray" Grid.Column="5" Grid.Row="0"
+                Click="MathButton_OnClick" Content="sin"/>
 
-        <!--  4th row  -->
+            <Button Classes="cirlce gray" Grid.Column="6" Grid.Row="0"
+                Click="MathButton_OnClick" Content="asin"/>
 
-        <Button Classes="cirlce" Grid.Column="0" Grid.Row="4"
-            Click="MathButton_OnClick" Content="4"/>
+            <!--  2nd row  -->
 
-        <Button Classes="cirlce" Grid.Column="1" Grid.Row="4"
-            Click="MathButton_OnClick" Content="5"/>
+            <Button Classes="cirlce" Grid.Column="0" Grid.Row="1"
+                Click="MathButton_OnClick" Content="7"/>
 
-        <Button Classes="cirlce" Grid.Column="2" Grid.Row="4"
-            Click="MathButton_OnClick" Content="6"/>
+            <Button Classes="cirlce" Grid.Column="1" Grid.Row="1"
+                Click="MathButton_OnClick" Content="8"/>
+            
+            <Button Classes="cirlce" Grid.Column="2" Grid.Row="1"
+                Click="MathButton_OnClick" Content="9"/>
+            
+            <Button Classes="cirlce orange" Grid.Column="3" Grid.Row="1"
+                Click="MathButton_OnClick" Content="*"/>
 
-        <Button Classes="cirlce orange" Grid.Column="3" Grid.Row="4"
-            Click="MathButton_OnClick" Content="-"/>
+            <Button Classes="cirlce gray" Grid.Column="4" Grid.Row="1"
+                Click="MathButton_OnClick" Content="^"/>
 
-        <Button Classes="cirlce gray" Grid.Column="4" Grid.Row="4"
-            Click="MathButton_OnClick" Content="10^x"/>
+            <Button Classes="cirlce gray" Grid.Column="5" Grid.Row="1"
+                Click="MathButton_OnClick" Content="cos"/>
 
-        <Button Classes="cirlce gray" Grid.Column="5" Grid.Row="4"
-            Click="MathButton_OnClick" Content="tan"/>
+            <Button Classes="cirlce gray" Grid.Column="6" Grid.Row="1"
+                Click="MathButton_OnClick" Content="acos"/>
 
-        <Button Classes="cirlce gray" Grid.Column="6" Grid.Row="4"
-            Click="MathButton_OnClick" Content="atan"/>
+            <!--  3th row  -->
 
-        <!--  5th row  -->
+            <Button Classes="cirlce" Grid.Column="0" Grid.Row="2"
+                Click="MathButton_OnClick" Content="4"/>
 
-        <Button Classes="cirlce" Grid.Column="0" Grid.Row="5"
-            Click="MathButton_OnClick" Content="1"/>
+            <Button Classes="cirlce" Grid.Column="1" Grid.Row="2"
+                Click="MathButton_OnClick" Content="5"/>
 
-        <Button Classes="cirlce" Grid.Column="1" Grid.Row="5"
-            Click="MathButton_OnClick" Content="2"/>
+            <Button Classes="cirlce" Grid.Column="2" Grid.Row="2"
+                Click="MathButton_OnClick" Content="6"/>
 
-        <Button Classes="cirlce" Grid.Column="2" Grid.Row="5"
-            Click="MathButton_OnClick" Content="3"/>
+            <Button Classes="cirlce orange" Grid.Column="3" Grid.Row="2"
+                Click="MathButton_OnClick" Content="-"/>
 
-        <Button Classes="cirlce orange" Grid.Column="3" Grid.Row="5"
-            Click="MathButton_OnClick" Content="+"/>
+            <Button Classes="cirlce gray" Grid.Column="4" Grid.Row="2"
+                FontSize="22"
+                Click="MathButton_OnClick" Content="10^x"/>
 
-        <Button Classes="cirlce gray" Grid.Column="4" Grid.Row="5"
-            Click="MathButton_OnClick" Content="rand"/>
+            <Button Classes="cirlce gray" Grid.Column="5" Grid.Row="2"
+                Click="MathButton_OnClick" Content="tg"/>
 
-        <Button Classes="cirlce gray" Grid.Column="5" Grid.Row="5"
-            Click="MathButton_OnClick" Content="ctg"/>
+            <Button Classes="cirlce gray" Grid.Column="6" Grid.Row="2"
+                Click="MathButton_OnClick" Content="atg"/>
 
-        <Button Classes="cirlce gray" Grid.Column="6" Grid.Row="5"
-            Click="MathButton_OnClick" Content="actg"/>
+            <!--  4th row  -->
 
-        <!--  6th row  -->
+            <Button Classes="cirlce" Grid.Column="0" Grid.Row="3"
+                Click="MathButton_OnClick" Content="1"/>
 
-        <Button Classes="cirlce" Grid.Column="0" Grid.Row="6"
-            Click="MathButton_OnClick" Content="0"/>
+            <Button Classes="cirlce" Grid.Column="1" Grid.Row="3"
+                Click="MathButton_OnClick" Content="2"/>
 
-        <Button Classes="cirlce" Grid.Column="1" Grid.Row="6"
-            Click="MathButton_OnClick" Content="%"/>
+            <Button Classes="cirlce" Grid.Column="2" Grid.Row="3"
+                Click="MathButton_OnClick" Content="3"/>
 
-        <Button Classes="cirlce" Grid.Column="2" Grid.Row="6"
-            Click="MathButton_OnClick" Content="."/>
+            <Button Classes="cirlce orange" Grid.Column="3" Grid.Row="3"
+                Click="MathButton_OnClick" Content="+"/>
 
-        <Button Classes="cirlce orange" Grid.Column="3" Grid.Row="6"
-            Click="ResultButton_OnClick" Content="="/>
+            <Button Classes="cirlce gray" Grid.Column="4" Grid.Row="3"
+                Click="MathButton_OnClick" Content="e"/>
 
-        <Button Classes="cirlce gray" Grid.Column="4" Grid.Row="6"
-            Click="MathButton_OnClick" Content="π"/>
+            <Button Classes="cirlce gray" Grid.Column="5" Grid.Row="3"
+                Click="MathButton_OnClick" Content="ctg"/>
 
-        <Button Classes="cirlce gray" Grid.Column="5" Grid.Row="6"
-            Click="MathButton_OnClick" Content="1/x"/>
+            <Button Classes="cirlce gray" Grid.Column="6" Grid.Row="3"
+                Click="MathButton_OnClick" Content="actg"/>
 
-        <Button Classes="cirlce gray" Grid.Column="6" Grid.Row="6" 
-            Click="MathButton_OnClick" Content="log"/>
+            <!--  5th row  -->
 
-        <!--  7th row  -->
+            <Button Classes="cirlce" Grid.Column="0" Grid.Row="4"
+                Click="MathButton_OnClick" Content="0"/>
 
-        <TextBlock Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="7" Name="History1"
-            Text=""/>
+            <Button Classes="cirlce" Grid.Column="1" Grid.Row="4"
+                Click="MathButton_OnClick" Content="."/>
 
-        <!--  8th row  -->
+            <Button Classes="cirlce" Grid.Column="2" Grid.Row="4"
+                Click="MathButton_OnClick" Content="%"/>
 
-        <TextBlock Name="History2" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="7" 
-            Text=""/>
+            <Button Classes="cirlce orange" Grid.Column="3" Grid.Row="4"
+                Click="ResultButton_OnClick" Content="="/>
 
-        <!--  9th row  -->
+            <Button Classes="cirlce gray" Grid.Column="4" Grid.Row="4"
+                Click="MathButton_OnClick" Content="π"/>
 
-        <TextBlock Name="History3" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="7" 
-            Text=""/>
+            <Button Classes="cirlce gray" Grid.Column="5" Grid.Row="4"
+                FontSize="22"
+                Click="MathButton_OnClick" Content="rand"/>
+
+            <Button Classes="cirlce gray" Grid.Column="6" Grid.Row="4" 
+                Click="MathButton_OnClick" Content="ln"/>
+            </Grid>
     </Grid>
 </Window>

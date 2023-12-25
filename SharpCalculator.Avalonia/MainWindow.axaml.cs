@@ -4,29 +4,24 @@ namespace SharpCalculator.Avalonia;
 
 public partial class MainWindow : Window
 {
-    private static readonly Random Random = new();
-    private readonly List<string> _history = new(); // History list to append expressions
+    private readonly Random Random = new();
     
     public MainWindow()
     {
         InitializeComponent();
     }
     
-    private void AppendToHistory(string calculation) //function of appending expression to the history list
+    private void AppendToHistory(string line) //function of appending expression to the history list
     {
-        _history.Add(calculation);
-        UpdateHistoryText();
-    }
-
-    private void UpdateHistoryText() //function to update history list 
-    {
-        int lastIndex = _history.Count - 1;
-        if (lastIndex >= 0) 
-            History1.Text = _history[lastIndex];
-        if (lastIndex - 1 >= 0) 
-            History2.Text = _history[lastIndex - 1];
-        if (lastIndex - 2 >= 0) 
-            History3.Text = _history[lastIndex - 2];
+        // begin new line if not empty
+        if (!string.IsNullOrEmpty(History.Text))
+            History.Text += '\n';
+        /// add line without space characters
+        History.Text += line
+            .Replace("\t", " ")
+            .Replace("\n", " ")
+            .Replace("\r", " ")
+            .Replace("  ", " ");
     }
 
     private void MathButton_OnClick(object? sender, RoutedEventArgs e)
@@ -34,39 +29,30 @@ public partial class MainWindow : Window
         if (sender is not Button button)
             throw new Exception();
         
-        switch (Input.Text) // Switch case for checking the inputting functions
+        string buttonText = button.Content!.ToString()!; // declaring text for using it in switch case 
+        Input.Text += buttonText switch
         {
-            case "rand": // rand function add random variable from 0 to 1 into Input 
-                Input.Text = "";
-                Input.Text += Random.NextDouble().ToString(CultureInfo.InvariantCulture);
-                break;
-            case "π": // Pi function add pi value into Input
-                Input.Text = "";
-                Input.Text += "3.1415";
-                break;
-            case "e": // euler function add e value into Input
-                Input.Text = "";
-                Input.Text += "2.71828";
-                break;
-            case "10^x": // ten in power of x function 
-                Input.Text = "";
-                Input.Text += "10^";
-                break;
-            case "1/x": // one over x function
-                Input.Text = "";
-                Input.Text += "1/";
-                break;
-            default: // if there is no function input, then just input Button content
-                string text = button.Content!.ToString()!; // declaring text for using it in switch case 
-                Input.Text += text;
-                break;
-        }
+            "rand" => // random number from 0 to 1 into Input 
+                Random.NextDouble().ToString("0.#####", CultureInfo.InvariantCulture),
+            "π" => // Pi constant
+                "3.14159",
+            "e" => // E constant
+                "2.71828",
+            "10^x" => // ten in power of x function 
+                "10^",
+            "1/x" => // one over x function
+                "1/",
+            "sin" or "cos" or "tg" or "ctg"
+            or "asin" or "acos" or "atg" or "actg"
+            or "ln" => buttonText+'(',
+            _ => buttonText
+        };
     }
     
-
     private void ClearButton_OnClick(object? sender, RoutedEventArgs e)
     {
         Input.Text = "";
+        Output.Text = "";
     }
 
     private void UndoButton_OnClick(object? sender, RoutedEventArgs e)
@@ -79,22 +65,35 @@ public partial class MainWindow : Window
     
     private void ResultButton_OnClick(object? sender, RoutedEventArgs e)
     {
+        if(Input.Text == null || Output.Text == null || Output.Text.StartsWith("Error"))
+            return;
+        string expression = Input.Text;
+        string result = Output.Text;
+        AppendToHistory($"{expression}={result}");
+        Input.Text = result;
+    }
+
+    private void Input_OnTextChanged(object? sender, TextChangedEventArgs e)
+    {
         if(Input.Text == null)
             return;
         
         string exprStr = Input.Text; // mathematical expression
         try
         {
-            double result = Calculator.Calculate(exprStr); // result being processed by calculator object that implemented in FusionCalculator Module
-            if (!double.IsNaN(result))
-            {
-                AppendToHistory($"{exprStr} = {result}");
-                Input.Text = result.ToString(CultureInfo.InvariantCulture);
-            }
+            // expression is being processed by Calculator class that implemented in FusionCalculator Module
+            double result = Calculator.Calculate(exprStr);
+            if (double.IsNaN(result))
+                Output.Text = "";
+            // scientific notation with 5-digit precision for big and small numbers
+            else if (result > 10e+15 || result < 10e-5)
+                Output.Text = result.ToString("0.#####E0", CultureInfo.InvariantCulture);
+            // decimal number with 5-digit precision for regular numbers
+            else Output.Text = result.ToString("0.#####", CultureInfo.InvariantCulture);
         }
         catch (Exception exception)
         {
-            AppendToHistory($"Error: {exception.Message}");
+            Output.Text = $"Error: {exception.Message}";
         }
     }
 }
