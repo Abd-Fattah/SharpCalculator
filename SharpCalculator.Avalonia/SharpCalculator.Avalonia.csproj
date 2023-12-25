@@ -7,6 +7,7 @@
         <ImplicitUsings>disable</ImplicitUsings>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <ApplicationIcon>assets\icon.ico</ApplicationIcon>
     </PropertyGroup>
     
     <ItemGroup>
@@ -18,5 +19,9 @@
     
     <ItemGroup>
       <ProjectReference Include="..\FusionCalculator\FusionCalculator.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <AvaloniaResource Include="assets\**"/>
     </ItemGroup>
 </Project>

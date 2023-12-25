@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     x:Class="SharpCalculator.Avalonia.MainWindow"
     Title="SharpCalculator"
+    Icon="avares://SharpCalculator.Avalonia/assets/icon.ico"
     FontFamily="Consolas" FontSize="24"
     Width="460" Height="570">
 
