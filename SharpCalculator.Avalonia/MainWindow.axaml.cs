@@ -11,8 +11,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using FusionCalculator;
 using Avalonia.Media;
+using FusionCalculator;
 
 
 namespace SharpCalculator.Avalonia;
@@ -20,7 +20,6 @@ namespace SharpCalculator.Avalonia;
 public partial class MainWindow : Window
 {
     private static readonly Random Random = new Random(); // Random object for rand() function in calculator
-    private readonly double _randomNumber = Random.NextDouble(); // Random variable is between 0 to 1
     private readonly List<string> _history = new List<string>(); // History list to append expressions
     
     public MainWindow()
@@ -67,7 +66,7 @@ public partial class MainWindow : Window
         {
             case "rand": // rand function add random variable from 0 to 1 into Input 
                 Input.Text = "";
-                Input.Text += _randomNumber.ToString(CultureInfo.InvariantCulture);
+                Input.Text += _random.NextDouble().ToString(CultureInfo.InvariantCulture);
                 break;
             case "π": // Pi function add pi value into Input
                 Input.Text = "";
